@@ -6,7 +6,7 @@
 /*   By: gclausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 13:54:32 by gclausse          #+#    #+#             */
-/*   Updated: 2021/12/02 17:37:31 by gclausse         ###   ########.fr       */
+/*   Updated: 2021/12/02 17:40:04 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ int	ft_printf(const char *str, ...)
 			}
 			if (str[i + 1] == 'x')
 			{
-				ft_putnbr_base(va_arg(vl, unsigned int), "abcdef0123456789");
+				ft_putnbr_base(va_arg(vl, unsigned int), "0123456789abcdef");
 				i++;
 			}
 			if (str[i + 1] == 'X')
 			{
-				ft_putnbr_base(va_arg(vl, unsigned int), "ABCDEF0123456789");
+				ft_putnbr_base(va_arg(vl, unsigned int), "0123456789ABCDEF");
 				i++;
 			}
 			if (str[i + 1] == '%')
@@ -74,9 +74,9 @@ int	ft_printf(const char *str, ...)
 
 int	main()
 {
-	printf("Bonjour  %c   %s\n", '?', "ca maaaaarche");
+	printf("Bonjour  %c   %s  %x\n", '?', "ca maaaaarche", 42);
 
-	ft_printf("Bonjour  %c      %s ",  '?', "ca maaaaarche!!!!");
+	ft_printf("Bonjour  %c      %s  %x",  '?', "ca maaaaarche!!!!", 42);
 
 }
 
