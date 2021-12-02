@@ -6,7 +6,7 @@
 /*   By: gclausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 13:54:32 by gclausse          #+#    #+#             */
-/*   Updated: 2021/12/02 14:13:54 by gclausse         ###   ########.fr       */
+/*   Updated: 2021/12/02 14:50:22 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,10 @@ int	ft_printf(const char *str)
 		{
 			ft_putnbr_base(va_arg, "ABCDEF123456789");
 		}
+		if (str[i + 1] == '%')
+		{
+			ft_putchar_fd('%', 1);
+		}
+
 	}
 }
