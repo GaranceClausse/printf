@@ -6,7 +6,7 @@
 #    By: gclausse <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 13:46:56 by gclausse          #+#    #+#              #
-#    Updated: 2021/12/02 15:26:34 by gclausse         ###   ########.fr        #
+#    Updated: 2021/12/02 17:17:40 by gclausse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ LIBFT_PATH= $(PARENT_DIR)
 
 NAME= libftprintf.a
 
-CC= gcc
+CC= gcc 
 
 CFLAGS= -Wall -Werror -Wextra -I${LIBFT_PATH}
 
@@ -28,14 +28,14 @@ OBJ= ${SRC:.c=.o}
 OBJBONUS= ${SRCBONUS:.c=.o}
 
 %.o: %.c
-	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
-
+	${CC} ${CFLAGS} -c $< -o ${<:.c=.o} 
+	
 all: ${NAME}
+	make -C $(LIBFT_PATH)
+
 
 ${NAME}: ${OBJ}
-	make -C $(LIBFT_PATH)
-	ar -rc ${NAME} ${OBJ} -L ${LIBFT_PATH} -libft
-
+		ar -rc ${NAME} ${OBJ}
 clean:
 	make clean -C $(LIBFT_PATH) && rm -f *.o
 

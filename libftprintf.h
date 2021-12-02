@@ -6,7 +6,7 @@
 /*   By: gclausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 14:32:10 by gclausse          #+#    #+#             */
-/*   Updated: 2021/12/02 15:28:47 by gclausse         ###   ########.fr       */
+/*   Updated: 2021/12/02 16:48:39 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LIBFTPRINTF_H
 
 # include <libc.h>
-#include "libft.h"
+# include <stdarg.h>
 
 void     ft_putnbr_base(int nbr, char *base);
 
