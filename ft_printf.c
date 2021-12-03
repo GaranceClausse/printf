@@ -6,7 +6,7 @@
 /*   By: gclausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 13:54:32 by gclausse          #+#    #+#             */
-/*   Updated: 2021/12/03 17:38:36 by gclausse         ###   ########.fr       */
+/*   Updated: 2021/12/03 20:23:20 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ int	ft_printf(const char *str, ...)
 				j = j + ft_putstr(va_arg(vl, char *), 1);
 			else if (str[i + 1] == 'p')
 			{
+				ft_putstr("0x", 1);
+				j = j + 2 + ft_putnbr_usgn_lg(va_arg(vl, unsigned long int), "0123456789abcdef");
+
 			}
 			else if (str[i + 1] == 'd' || str[i + 1] == 'i')
 				j = j + ft_putnbr_base(va_arg(vl, int), "0123456789");
@@ -89,3 +92,10 @@ int	ft_printf(const char *str, ...)
 	va_end(vl);
 	return (j);
 }
+/*
+int	main ()
+{
+	printf("%d\n", ft_printf(" %p ", 2147483647));
+//printf("%d\n", printf(" %p ", -2147483647 - 1));
+
+}*/

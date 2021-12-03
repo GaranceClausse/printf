@@ -6,17 +6,18 @@
 #    By: gclausse <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 13:46:56 by gclausse          #+#    #+#              #
-#    Updated: 2021/12/03 11:28:33 by gclausse         ###   ########.fr        #
+#    Updated: 2021/12/03 19:56:07 by gclausse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC= ft_putnbr_base.c\
 	 ft_putnbr_base_unsgn.c\
+	 ft_putnbr_usgn_lg.c\
 	 ft_printf.c
 
-PARENT_DIR= libft
+LIBFT_PATH= libft
 
-LIBFT_PATH= $(PARENT_DIR)
+LIBFT_NAME= libft.a
 
 NAME= libftprintf.a
 
@@ -32,11 +33,12 @@ OBJBONUS= ${SRCBONUS:.c=.o}
 	${CC} ${CFLAGS} -c $< -o ${<:.c=.o} 
 	
 all: ${NAME}
-	make -C $(LIBFT_PATH)
-
-
+		
 ${NAME}: ${OBJ}
+		make -C $(LIBFT_PATH)
+		cp ${LIBFT_PATH}/${LIBFT_NAME} $(NAME)
 		ar -rc ${NAME} ${OBJ}
+
 clean:
 	make clean -C $(LIBFT_PATH) && rm -f *.o
 
