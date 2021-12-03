@@ -6,35 +6,70 @@
 /*   By: gclausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 13:54:32 by gclausse          #+#    #+#             */
-/*   Updated: 2021/12/02 17:40:04 by gclausse         ###   ########.fr       */
+/*   Updated: 2021/12/03 16:33:58 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 #include "libft/libft.h"
+
+static void	ft_putchar(char c, int fd)
+{
+	write(fd, &c, 1);
+}
+
+static int	ft_putstr(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (s)
+	{
+		while (s[i])
+		{
+			write(fd, &s[i], 1);
+			i++;
+		}
+	}
+	if (s == NULL)
+	{
+		write(fd, "(null)", 6);
+		i+=6;
+	}
+	return (i);
+}
+
 
 int	ft_printf(const char *str, ...)
 {
 	int		i;
+	int		j;
 	va_list	vl;
 
 	va_start(vl, str);
 	i = 0;
-	while (str[i] && str[i] != '%')
+	j = 0;
+	while (str[i])
 	{
-		ft_putchar_fd(str[i], 1);
-		if (str[i + 1] == '%')
+		while (str[i] != '%' && str[i])
 		{
+			ft_putchar_fd(str[i], 1);
 			i++;
+			j++;
+		}
+		if (str[i] == '%')
+		{
 			if (str[i + 1] == 'c')
 			{
-				ft_putchar_fd(va_arg(vl, int), 1);
-				i++;
+				ft_putchar(va_arg(vl, int), 1);
+				i++;;
+				j++;
 			}
 			if (str[i + 1] == 's')
 			{
-				ft_putstr_fd(va_arg(vl, char *), 1);
 				i++;
+				j = j + ft_putstr(va_arg(vl, char *), 1);
+
 			}
 			if (str[i + 1] == 'p')
 			{
@@ -42,22 +77,22 @@ int	ft_printf(const char *str, ...)
 			}
 			if (str[i + 1] == 'd' || str[i + 1] == 'i')
 			{
-				ft_putnbr_base(va_arg(vl, int), "0123456789");
+				j = j + ft_putnbr_base(va_arg(vl, int), "0123456789");
 				i++;
 			}
 			if (str[i + 1] == 'u')
 			{
-				ft_putnbr_base(va_arg(vl, unsigned int), "0123456789");
+				j = j + ft_putnbr_base_unsgn(va_arg(vl, unsigned int), "0123456789");
 				i++;
 			}
 			if (str[i + 1] == 'x')
 			{
-				ft_putnbr_base(va_arg(vl, unsigned int), "0123456789abcdef");
+				j = j + ft_putnbr_base_unsgn(va_arg(vl, unsigned int), "0123456789abcdef");
 				i++;
 			}
 			if (str[i + 1] == 'X')
 			{
-				ft_putnbr_base(va_arg(vl, unsigned int), "0123456789ABCDEF");
+				j = j + ft_putnbr_base_unsgn(va_arg(vl, unsigned int), "0123456789ABCDEF");
 				i++;
 			}
 			if (str[i + 1] == '%')
@@ -65,18 +100,23 @@ int	ft_printf(const char *str, ...)
 				ft_putchar_fd('%', 1);
 				i++;
 			}
+
 		}
-		i++;
+		if (str[i])
+			i++;
 	}
 	va_end(vl);
-	return (0);
+	return (j);
 }
-
+/*
 int	main()
 {
-	printf("Bonjour  %c   %s  %x\n", '?', "ca maaaaarche", 42);
+	printf(" %d ", -1);
+	printf("\nretour de printf :%d\n", printf(" %d ", -1));
 
-	ft_printf("Bonjour  %c      %s  %x",  '?', "ca maaaaarche!!!!", 42);
+	ft_printf(" %d ", -1);
+	printf ("\nretour de moi: %d\n", ft_printf(" %d ", -1));
 
-}
+
+	}*/
 

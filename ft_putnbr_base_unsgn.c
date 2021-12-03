@@ -1,47 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
+/*   ft_putnbr_base_unsgn.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gclausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/02 13:47:55 by gclausse          #+#    #+#             */
-/*   Updated: 2021/12/03 15:54:41 by gclausse         ###   ########.fr       */
+/*   Created: 2021/12/03 11:26:29 by gclausse          #+#    #+#             */
+/*   Updated: 2021/12/03 16:33:03 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft.h"
+#include "libft/libft.h"
 
-int     ft_putnbr_base(int nbr, char *base)
+int     ft_putnbr_base_unsgn(unsigned int nbr, char *base)
 {
 	int			j;
-	int			base_len;
+	long int	nb3;
 	long int	nb2;
 	int			cpt;
 
 	j = 0;
-	base_len = ft_strlen(base);
-	nb2 = nbr;
 	cpt = 1;
-	while (nb2 / 10)
+	if (nbr < 0)
+		nb2 = nbr + 2147483648;
+	else
+		nb2 = nbr;
+	nb3 = nb2;
+	while (nb3 / 10)
 	{
-		nb2 = nb2 / 10;
+		nb3 = nb3 / 10;
 		cpt++;
 	}
-	nb2 = nbr;
-	if (nb2 < 0)
-	{
-		ft_putchar_fd('-', 1);
-		nb2 = nb2 * -1;
-		cpt++;
-	}
-	if (nb2 < base_len)
+	if (nb2 < (long)ft_strlen(base))
 		ft_putchar_fd(base[nb2], 1);
 	else
 	{
-		ft_putnbr_base(nb2 / base_len, base);
-		ft_putchar_fd(base[nb2 % base_len], 1);
+		ft_putnbr_base(nb2 / ft_strlen(base), base);
+		ft_putchar_fd(base[nb2 % ft_strlen(base)], 1);
 	}
 	return (cpt);
 }
