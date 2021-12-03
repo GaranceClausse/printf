@@ -6,7 +6,7 @@
 /*   By: gclausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 13:54:32 by gclausse          #+#    #+#             */
-/*   Updated: 2021/12/03 17:00:28 by gclausse         ###   ########.fr       */
+/*   Updated: 2021/12/03 17:38:36 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,10 @@ static int	ft_putstr(char *s, int fd)
 	if (s == NULL)
 	{
 		write(fd, "(null)", 6);
-		i+=6;
+		i += 6;
 	}
 	return (i);
 }
-
 
 int	ft_printf(const char *str, ...)
 {
@@ -62,45 +61,27 @@ int	ft_printf(const char *str, ...)
 			if (str[i + 1] == 'c')
 			{
 				ft_putchar(va_arg(vl, int), 1);
-				i++;;
 				j++;
 			}
-			if (str[i + 1] == 's')
-			{
-				i++;
+			else if (str[i + 1] == 's')
 				j = j + ft_putstr(va_arg(vl, char *), 1);
-
-			}
-			if (str[i + 1] == 'p')
+			else if (str[i + 1] == 'p')
 			{
-			
 			}
-			if (str[i + 1] == 'd' || str[i + 1] == 'i')
-			{
+			else if (str[i + 1] == 'd' || str[i + 1] == 'i')
 				j = j + ft_putnbr_base(va_arg(vl, int), "0123456789");
-				i++;
-			}
-			if (str[i + 1] == 'u')
-			{
+			else if (str[i + 1] == 'u')
 				j = j + ft_putnbr_base_unsgn(va_arg(vl, unsigned int), "0123456789");
-				i++;
-			}
-			if (str[i + 1] == 'x')
-			{
+			else if (str[i + 1] == 'x')
 				j = j + ft_putnbr_base_unsgn(va_arg(vl, unsigned int), "0123456789abcdef");
-				i++;
-			}
-			if (str[i + 1] == 'X')
-			{
+			else if (str[i + 1] == 'X')
 				j = j + ft_putnbr_base_unsgn(va_arg(vl, unsigned int), "0123456789ABCDEF");
-				i++;
-			}
-			if (str[i + 1] == '%')
+			else if (str[i + 1] == '%')
 			{
 				ft_putchar_fd('%', 1);
-				i++;
+				j++;
 			}
-
+			i++;
 		}
 		if (str[i])
 			i++;
@@ -108,14 +89,3 @@ int	ft_printf(const char *str, ...)
 	va_end(vl);
 	return (j);
 }
-/*
-int	main()
-{
-	printf(" %x ", -9);
-	printf("\nretour de printf :%d\n", printf("%x", -96565498));
-
-	ft_printf(" %x ", -9);
-	printf ("\nretour de moi: %d\n", ft_printf("%x", -96565498));
-
-
-	}*/
