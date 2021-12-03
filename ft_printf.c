@@ -6,7 +6,7 @@
 /*   By: gclausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 13:54:32 by gclausse          #+#    #+#             */
-/*   Updated: 2021/12/03 20:23:20 by gclausse         ###   ########.fr       */
+/*   Updated: 2021/12/03 21:06:49 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,16 @@ int	ft_printf(const char *str, ...)
 			else if (str[i + 1] == 'p')
 			{
 				ft_putstr("0x", 1);
-				j = j + 2 + ft_putnbr_usgn_lg(va_arg(vl, unsigned long int), "0123456789abcdef");
-
+				j += 2 + putul(va_arg(vl, unsigned long int), "0123456789abcdef");
 			}
 			else if (str[i + 1] == 'd' || str[i + 1] == 'i')
 				j = j + ft_putnbr_base(va_arg(vl, int), "0123456789");
 			else if (str[i + 1] == 'u')
-				j = j + ft_putnbr_base_unsgn(va_arg(vl, unsigned int), "0123456789");
+				j = j + putusg(va_arg(vl, unsigned int), "0123456789");
 			else if (str[i + 1] == 'x')
-				j = j + ft_putnbr_base_unsgn(va_arg(vl, unsigned int), "0123456789abcdef");
+				j = j + putusg(va_arg(vl, unsigned int), "0123456789abcdef");
 			else if (str[i + 1] == 'X')
-				j = j + ft_putnbr_base_unsgn(va_arg(vl, unsigned int), "0123456789ABCDEF");
+				j = j + putusg(va_arg(vl, unsigned int), "0123456789ABCDEF");
 			else if (str[i + 1] == '%')
 			{
 				ft_putchar_fd('%', 1);

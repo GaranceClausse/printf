@@ -6,14 +6,14 @@
 /*   By: gclausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 11:26:29 by gclausse          #+#    #+#             */
-/*   Updated: 2021/12/03 18:18:59 by gclausse         ###   ########.fr       */
+/*   Updated: 2021/12/03 20:50:11 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-int	ft_putnbr_base_unsgn(unsigned int nbr, char *base)
+int	putusg(unsigned int nbr, char *base)
 {
 	int			j;
 	long int	nb2;
@@ -29,7 +29,7 @@ int	ft_putnbr_base_unsgn(unsigned int nbr, char *base)
 		ft_putchar_fd(base[nb2], 1);
 	else
 	{
-		cpt += ft_putnbr_base(nb2 / ft_strlen(base), base);
+		cpt += putusg(nb2 / ft_strlen(base), base);
 		ft_putchar_fd(base[nb2 % ft_strlen(base)], 1);
 	}
 	if (nbr < 0)

@@ -6,14 +6,14 @@
 /*   By: gclausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 19:50:10 by gclausse          #+#    #+#             */
-/*   Updated: 2021/12/03 20:23:00 by gclausse         ###   ########.fr       */
+/*   Updated: 2021/12/03 20:46:09 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-int	ft_putnbr_usgn_lg(unsigned long int nbr, char *base)
+int	putul(unsigned long int nbr, char *base)
 {
 	int					j;
 	unsigned long int	nb2;
@@ -29,7 +29,7 @@ int	ft_putnbr_usgn_lg(unsigned long int nbr, char *base)
 		ft_putchar_fd(base[nb2], 1);
 	else
 	{
-		cpt += ft_putnbr_base(nb2 / ft_strlen(base), base);
+		cpt += putul(nb2 / ft_strlen(base), base);
 		ft_putchar_fd(base[nb2 % ft_strlen(base)], 1);
 	}
 	if (nbr < 0)
