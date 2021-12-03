@@ -6,7 +6,7 @@
 /*   By: gclausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 13:54:32 by gclausse          #+#    #+#             */
-/*   Updated: 2021/12/03 16:33:58 by gclausse         ###   ########.fr       */
+/*   Updated: 2021/12/03 17:00:28 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,11 @@ int	ft_printf(const char *str, ...)
 /*
 int	main()
 {
-	printf(" %d ", -1);
-	printf("\nretour de printf :%d\n", printf(" %d ", -1));
+	printf(" %x ", -9);
+	printf("\nretour de printf :%d\n", printf("%x", -96565498));
 
-	ft_printf(" %d ", -1);
-	printf ("\nretour de moi: %d\n", ft_printf(" %d ", -1));
+	ft_printf(" %x ", -9);
+	printf ("\nretour de moi: %d\n", ft_printf("%x", -96565498));
 
 
 	}*/
-

@@ -6,11 +6,12 @@
 #    By: gclausse <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 13:46:56 by gclausse          #+#    #+#              #
-#    Updated: 2021/12/02 17:17:40 by gclausse         ###   ########.fr        #
+#    Updated: 2021/12/03 11:28:33 by gclausse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC= ft_putnbr_base.c\
+	 ft_putnbr_base_unsgn.c\
 	 ft_printf.c
 
 PARENT_DIR= libft
