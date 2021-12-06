@@ -6,16 +6,17 @@
 /*   By: gclausse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 13:54:32 by gclausse          #+#    #+#             */
-/*   Updated: 2021/12/03 21:06:49 by gclausse         ###   ########.fr       */
+/*   Updated: 2021/12/06 11:47:54 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-static void	ft_putchar(char c, int fd)
+static int	ft_putchar(char c, int fd)
 {
 	write(fd, &c, 1);
+	return (1);
 }
 
 static int	ft_putstr(char *s, int fd)
@@ -39,6 +40,33 @@ static int	ft_putstr(char *s, int fd)
 	return (i);
 }
 
+static int	func_printf(const char *str, int j, va_list *arg)
+{
+	int	i;
+
+	i = 0;
+	if (str[i + 1] == 'c')
+		j = j + ft_putchar(va_arg(*arg, int), 1);
+	else if (str[i + 1] == 's')
+		j = j + ft_putstr(va_arg(*arg, char *), 1);
+	else if (str[i + 1] == 'p')
+	{
+		ft_putstr("0x", 1);
+		j += 2 + putul(va_arg(*arg, unsigned long int), "0123456789abcdef");
+	}
+	else if (str[i + 1] == 'd' || str[i + 1] == 'i')
+		j = j + ft_putnbr_base(va_arg(*arg, int), "0123456789");
+	else if (str[i + 1] == 'u')
+		j = j + putusg(va_arg(*arg, unsigned int), "0123456789");
+	else if (str[i + 1] == 'x')
+		j = j + putusg(va_arg(*arg, unsigned int), "0123456789abcdef");
+	else if (str[i + 1] == 'X')
+		j = j + putusg(va_arg(*arg, unsigned int), "0123456789ABCDEF");
+	else if (str[i + 1] == '%')
+		j = j + ft_putchar('%', 1);
+	return (j);
+}
+
 int	ft_printf(const char *str, ...)
 {
 	int		i;
@@ -58,31 +86,7 @@ int	ft_printf(const char *str, ...)
 		}
 		if (str[i] == '%')
 		{
-			if (str[i + 1] == 'c')
-			{
-				ft_putchar(va_arg(vl, int), 1);
-				j++;
-			}
-			else if (str[i + 1] == 's')
-				j = j + ft_putstr(va_arg(vl, char *), 1);
-			else if (str[i + 1] == 'p')
-			{
-				ft_putstr("0x", 1);
-				j += 2 + putul(va_arg(vl, unsigned long int), "0123456789abcdef");
-			}
-			else if (str[i + 1] == 'd' || str[i + 1] == 'i')
-				j = j + ft_putnbr_base(va_arg(vl, int), "0123456789");
-			else if (str[i + 1] == 'u')
-				j = j + putusg(va_arg(vl, unsigned int), "0123456789");
-			else if (str[i + 1] == 'x')
-				j = j + putusg(va_arg(vl, unsigned int), "0123456789abcdef");
-			else if (str[i + 1] == 'X')
-				j = j + putusg(va_arg(vl, unsigned int), "0123456789ABCDEF");
-			else if (str[i + 1] == '%')
-			{
-				ft_putchar_fd('%', 1);
-				j++;
-			}
+			j = func_printf(&str[i], j, &vl);
 			i++;
 		}
 		if (str[i])
@@ -91,10 +95,10 @@ int	ft_printf(const char *str, ...)
 	va_end(vl);
 	return (j);
 }
-/*
+
 int	main ()
 {
-	printf("%d\n", ft_printf(" %p ", 2147483647));
-//printf("%d\n", printf(" %p ", -2147483647 - 1));
+	printf("%d\n", ft_printf(" %c why?! %c %w %c", 'a', 'b', 'c'));
+	printf("%d\n", printf(" %c why?! %c", 'a', 'b'));
 
-}*/
+}
